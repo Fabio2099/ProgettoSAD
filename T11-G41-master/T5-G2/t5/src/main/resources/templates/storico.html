@@ -30,7 +30,7 @@
         <p class="user_position_main" style="color: white; font-family:Arial, Helvetica, sans-serif; font-weight: bold;">Username: <span id="usernameField"></span></p>
         <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
     </div>
-
+    <p class="user_position_main" style="color: white; font-family:Arial, Helvetica, sans-serif; font-weight: bold;">Storico Partite Utente: <span id="nameField"></span></p>
     <div class="container">
        
         <!-- Tabella per la classifica -->
@@ -56,9 +56,12 @@
     </div>
 
     <script>
+        /*<![CDATA[*/
+        var IdAuth = "[[${IdAuth}]]";
+        /*]]>*/
         //funzione per effettuare la richiesta HTTP 
         function caricaStorico(){
-            fetch("http://t4-g18-app-1:3000/turns/list")
+            fetch("http://t4-g18-app-1:3000/turns/account/" + IdAuth)
             .then(response => response.json())
             .then(data => {
                 popolaStorico(data);

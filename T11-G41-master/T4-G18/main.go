@@ -357,6 +357,9 @@ func setupRoutes(gc *game.Controller, rc *round.Controller, tc *turn.Controller,
 		// Get turn
 		r.Get("/{id}", api.HandlerFunc(tc.FindByID))
 
+		// Get turn
+		r.Get("/account/{accountID}", api.HandlerFunc(tc.ListByAccount))
+
 		// List turn
 		r.Get("/", api.HandlerFunc(tc.List))
 

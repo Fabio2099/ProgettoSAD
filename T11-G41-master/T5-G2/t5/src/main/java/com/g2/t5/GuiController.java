@@ -66,7 +66,8 @@ public class GuiController {
     // private Map<Integer, String> hashMap2 = new HashMap<>();
     // private final FileController fileController;
     private RestTemplate restTemplate;
-    private String nameAuth;
+    private String nameAuth; //Aggiunta Fabio
+    private String IdAuth;  //Aggiunta Fabio
     public GuiController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -196,7 +197,27 @@ public class GuiController {
         return "game_mode";
     }
     @GetMapping("/storico")
-    public String storicoPage(){
+    public String storicoPage(Model model, @CookieValue(required = false) String jwt){
+        MultiValueMap<String, String> formData = new LinkedMultiValueMap<String, String>();
+        formData.add("jwt", jwt);
+
+        Boolean isAuthenticated = restTemplate.postForObject("http://t23-g1-app-1:8080/validateToken", formData, Boolean.class);
+//-------------------------------------Fabio Prova----------------------------
+        System.out.println("contenuto di isAuthenticated: " + isAuthenticated);
+
+        if(isAuthenticated == null || !isAuthenticated) return "redirect:/login";
+        
+        Integer IdTemp = restTemplate.postForObject("http://t23-g1-app-1:8080/IdToken", formData, Integer.class);
+        if(IdTemp != null){
+            IdAuth = IdTemp.toString();
+            System.out.println("ID utente: " + IdAuth);
+        }else{
+            System.out.println("ID utente non ricevuto o errore nella richiesta");
+        }
+
+        model.addAttribute("IdAuth", IdAuth);
+ //-------------------------------------Fabio Prova----------------------------       
+
         return "storico";
     }
     public List<ClassUT> getClasses() {

@@ -79,6 +79,27 @@ func (tr *Repository) CreateBulk(r *CreateRequest) ([]Turn, error) {
 	return resp, api.MakeServiceError(err)
 }
 
+func (tr *Repository) GetTurnsByAccountID(accountID string) ([]Turn, error) {
+	var turns []model.Turn
+
+	err := tr.db.
+		Model(&model.Turn{}).
+		Joins("Join players ON turns.player_id = players.id").
+		Where("players.account_id = ?", accountID).
+		Find(&turns).
+		Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	resp := make([]Turn, len(turns))
+	for i, turn := range turns{
+		resp[i] = fromModel(&turn)
+	}
+	return resp, nil
+}
+
 func (tr *Repository) Update(id int64, r *UpdateRequest) (Turn, error) {
 
 	var (

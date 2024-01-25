@@ -356,6 +356,28 @@ public class Controller {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Impossibile estrarre il nome dal token.");
         }
     }
+
+    //Funzione per l'estrazione dell'ID dal Token
+    public Integer extractIDString(String jwt){
+        try{
+            Claims c = Jwts.parser().setSigningKey("mySecretKey").parseClaimsJws(jwt).getBody();
+            return c.get("userId", Integer.class);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    //endpoint per estrarre l'ID dal Token
+    @PostMapping("/IdToken")
+    public ResponseEntity<String> extractIdToken(@RequestParam("jwt") String jwt) {
+        Integer userId = extractIDString(jwt);
+        if (userId != null) {
+            return ResponseEntity.ok(userId.toString());
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Impossibile estrarre l'Id dal token.");
+        }
+    }
  //-------------------------------------Fabio Prova----------------------------
 
     public boolean isJwtValid(String jwt) {

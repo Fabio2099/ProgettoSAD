@@ -12,88 +12,88 @@
             color: white;
             font-weight: bold;
         }
-        .colored-text{
+
+        .colored-text {
             color: white;
         }
     </style>
 </head>
 
 <body class="bg-custom">
-    <!-- Inclusione di jQuery -->
-    <script th:src="@{/t5/jquery/jquery-3.7.0.com.js}" th:inline="javascript"></script>
+<!-- Inclusione di jQuery -->
+<script th:src="@{/t5/jquery/jquery-3.7.0.com.js}" th:inline="javascript"></script>
 
-    <div class="mt-2 row">
-        <p class="user_position_main" style="color: white; font-family:Arial, Helvetica, sans-serif; font-weight: bold;">Username: <span id="usernameField"></span></p>
-        <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
+<div class="mt-2 row">
+    <p class="user_position_main" style="color: white; font-family:Arial, Helvetica, sans-serif; font-weight: bold;">Username: <span id="usernameField"></span></p>
+    <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
+</div>
+
+<div class="container">
+    <!-- Tabella per la classifica -->
+    <div class="row">
+        <table id="classificaTable" class="table">
+            <thead>
+            <tr>
+                <th>ID Giocatore</th>
+                <th>Nome Giocatore</th>
+                <th>Partite Vinte</th>
+                <th>Partite Effetuate</th>
+                <th>Percentuale Vittorie</th>  <!--Nuova colonna -->
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Il contenuto della tabella sarà popolato dinamicamente qui -->
+            </tbody>
+        </table>
     </div>
-   
+</div>
 
-    <div class="container">
-       
-        <!-- Tabella per la classifica -->
-        <div class="row">
-            <table id="classificaTable" class="table">
-                <thead>
-                    <tr>
-                        <th>ID Giocatore</th>
-                        <th>Nome Giocatore</th>
-                        <th>Partite Vinte</th>
-                        <th>Partite Effetuate</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Il contenuto della tabella sarà popolato dinamicamente qui -->
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-
-    <script>
-        // Funzione per effettuare la richiesta HTTP e popolare la tabella della classifica
-        function caricaClassifica() {
-            // Sostituisci 'URL_DEL_TUO_ENDPOINT' con l'effettivo URL del tuo endpoint
-            fetch("http://t4-g18-app-1:3000/players")
-                .then(response => response.json())
-                .then(data => {
-                    // Chiamata quando la richiesta ha successo
-                    popolaTabella(data);
-                })
-                .catch(error => {
-                    // Chiamata quando la richiesta fallisce
-                    console.error('Errore nella richiesta HTTP:', error);
-                });
-        }
-
-        // Funzione per popolare dinamicamente la tabella
-        function popolaTabella(data) {
-            data.sort((a, b) => b.wins - a.wins);
-            const tabella = document.getElementById('classificaTable').getElementsByTagName('tbody')[0];
-           
-
-            // Cicla attraverso i dati ottenuti dalla richiesta
-            data.forEach(giocatore => {
-                const riga = tabella.insertRow();
-                const cellaId = riga.insertCell(0);
-                const cellaNome = riga.insertCell(1);
-                const cellaWins = riga.insertCell(2);
-                const cellaPartiteEffettuate = riga.insertCell(3);
-
-                // Assegna i valori alle celle della riga
-                cellaId.innerHTML ='<span class ="colored-text">' + giocatore.accountId + '</span>';
-                
-                cellaNome.innerHTML = '<span class ="colored-text">' + giocatore.name + '</span>'; //vuoto per ora
-                cellaWins.innerHTML = '<span class ="colored-text">' + giocatore.wins + '</span>';
-                cellaPartiteEffettuate.innerHTML = '<span class ="colored-text">' + giocatore.turnsPlayed + '</span>';
-
+<script>
+    // Funzione per effettuare la richiesta HTTP e popolare la tabella della classifica
+    function caricaClassifica() {
+        fetch("http://t4-g18-app-1:3000/players")
+            .then(response => response.json())
+            .then(data => {
+                // Chiamata quando la richiesta ha successo
+                popolaTabella(data);
+            })
+            .catch(error => {
+                // Chiamata quando la richiesta fallisce
+                console.error('Errore nella richiesta HTTP:', error);
             });
-            // Sostituisci 'URL_DEL_TUO_ENDPOINT' con l'effettivo URL del tuo endpoint
-        }
+    }
 
-        // Chiama la funzione per caricare la classifica al caricamento della pagina
-        caricaClassifica();
-    </script>
+    // Funzione per popolare dinamicamente la tabella
+    function popolaTabella(data) {
+        data.sort((a, b) => b.wins - a.wins);
+        const tabella = document.getElementById('classificaTable').getElementsByTagName('tbody')[0];
+
+        // Cicla attraverso i dati ottenuti dalla richiesta
+        data.forEach(giocatore => {
+            const riga = tabella.insertRow();
+            const cellaId = riga.insertCell(0);
+            const cellaNome = riga.insertCell(1);
+            const cellaWins = riga.insertCell(2);
+            const cellaPartiteEffettuate = riga.insertCell(3);
+            const cellaPercentualeVittorie = riga.insertCell(4); // Nuova cella
+
+            // Assegna i valori alle celle della riga
+            cellaId.innerHTML = '<span class ="colored-text">' + giocatore.accountId + '</span>';
+            cellaNome.innerHTML = '<span class ="colored-text">' + giocatore.name + '</span>';
+            cellaWins.innerHTML = '<span class ="colored-text">' + giocatore.wins + '</span>';
+            cellaPartiteEffettuate.innerHTML = '<span class ="colored-text">' + giocatore.turnsPlayed + '</span>';
+
+            // Calcola e assegna la percentuale di partite vinte
+            const percentualeVittorie = (giocatore.wins / giocatore.turnsPlayed * 100).toFixed(2);
+            cellaPercentualeVittorie.innerHTML = '<span class ="colored-text">' + percentualeVittorie + '%</span>';
+        });
+    }
+
+    // Chiama la funzione per caricare la classifica al caricamento della pagina
+    caricaClassifica();
+</script>
 
 </body>
 
 </html>
+

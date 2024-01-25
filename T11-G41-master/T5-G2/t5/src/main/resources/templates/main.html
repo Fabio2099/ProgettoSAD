@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <link th:href="@{./t5/css/main.css}" rel="stylesheet" />
+    <link th:href="@{./t5/css/main2.css}" rel="stylesheet" />
+    <link th:href="@{./t5/bootstrap-4/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/t5/js/main.js}"></script>
+    <title>Choose your enemy</title> 
+</head>
+
+<body class=bg-custom>
+    <!-- inclusione jquery-->
+    <script th:src="@{/t5/jquery/jquery-3.7.0.com.js}"  th:inline="javascript">
+    </script>
+
+<div class="mt-2 row">
+    <p class="user_position_main" style="color: white; font-family:Arial, Helvetica, sans-serif; font-weight: bold;" >Username: <span id="usernameField"></span></p>
+    <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
+
+
+</div>
+     <div class="container">
+
+        <div class="mt-0 row">
+
+            <div class="col-md-4 custom-column ">
+                <!-- Contenuto della prima colonna -->
+                <div class="v5_2090_main">
+                    <div class="v5_2095_main" >
+                        <span class="v5_2096"></span>
+                        <div class="div_back_main">
+                            <button id="downloadButton" type="button" class="btn custom-button" th:onclick="redirectToGameMode()">Nuova Partita</button>
+                            
+                          </div>
+                        <div class="name"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 custom-column">
+                <!-- Contenuto della seconda colonna -->
+                <div class="v5_2111_main">
+                    <div class="v5_2116_main">
+                        <span class="v5_2117"></span>
+                        <div class="div_back_main">
+                            <button id="downloadButton" type="button" class="btn custom-button" th:onclick="redirectToClassifica()">Visualizza Classifica</button>
+                            
+                        </div>
+                        <div class="name"></div>
+                         </span> 
+            
+                                
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 custom-column">
+                <!-- Contenuto della terza colonna -->
+                <div class="v5_2111_main">
+                    <div class="v5_2116_main">
+                        <span class="v5_2117"></span>
+                        <div class="div_back_main">
+                            <button id="downloadButton" type="button" class="btn custom-button" th:onclick="redirectToStorico()">Visualizza Storico</button>
+                            
+                        </div>
+                        <div class="name"></div>
+                         </span> 
+            
+                                
+                        
+                    </div>
+                </div>
+            </div>
+
+		</div>
+        </div>
+</body>
+
+
+</html>

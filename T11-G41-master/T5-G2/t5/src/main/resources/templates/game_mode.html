@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+
+<head>
+    <link th:href="@{./t5/css/main.css}" rel="stylesheet" />
+    <link th:href="@{./t5/css/main2.css}" rel="stylesheet" />
+    <link th:href="@{./t5/bootstrap-4/css/bootstrap.min.css}" rel="stylesheet" />
+    <script th:src="@{/t5/js/main.js}"></script>
+    <style>
+        /* Aggiunto stile per il titolo */
+        h1 {
+            color: #fff; /* Colore del testo bianco */
+            font-family: 'Arial', sans-serif; /* Stesso font del titolo */
+        }
+
+        /* Aggiunto stile per il testo dei bottoni */
+        .btn.custom-button {
+            white-space: normal; /* Per andare a capo */
+            width: 100%; /* Larghezza al 100% della colonna */
+            font-family: 'Arial', sans-serif; /* Stesso font del titolo */
+        }
+    </style>
+    <title>Scegli la modalità di gioco</title>
+</head>
+
+<body class="bg-custom">
+    <!-- inclusione jquery-->
+    <script th:src="@{/t5/jquery/jquery-3.7.0.com.js}" th:inline="javascript">
+    </script>
+
+    <div class="mt-2 row">
+        <p class="user_position_main" style="color: white; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">Username: <span id="usernameField"></span></p>
+        <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
+    </div>
+
+    <div class="container">
+
+        <h1 class="mt-4">Scegli la modalità di gioco</h1>
+
+        <div class="mt-0 row">
+
+            <div class="col-md-6 custom-column">
+                <!-- Contenuto della prima colonna -->
+                <div class="v5_2090_main">
+                    <div class="v5_2095_main">
+                        <span class="v5_2096"></span>
+                        <div class="div_back_main">
+                            <button id="nuovaPartitaButton" type="button" class="btn custom-button" th:onclick="redirectToPageChoose()">Modalià Classica (1Vs1)</button>
+                        </div>
+                        <div class="name"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 custom-column">
+                <!-- Contenuto della seconda colonna -->
+                <div class="v5_2111_main">
+                    <div class="v5_2116_main">
+                        <span class="v5_2117"></span>
+                        <div class="div_back_main">
+                            <button id="classificaButton" type="button" class="btn custom-button" th:onclick="redirectToAllRobots()">Modalità Alternativa (1VSTutti)</button>
+                        </div>
+                        <div class="name"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-T5Application<t5>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.g2.t5.T5Application",
+            "projectName": "t5",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiGatewayApplication<api_gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.api_gateway.ApiGatewayApplication",
+            "projectName": "api_gateway",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DbSetupApplication<DB_Setup>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.db_setup.DbSetupApplication",
+            "projectName": "DB_Setup",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ManvsclassApplication<manvsclass>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.groom.manvsclass.ManvsclassApplication",
+            "projectName": "manvsclass",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-App<RemoteCCC>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "RemoteCCC.App.App",
+            "projectName": "RemoteCCC",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MainController<T6>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.T6.MainController",
+            "projectName": "T6",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

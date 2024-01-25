@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/T11-G41-master/T5-G2/t5/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/T1-G11/applicazione/manvsclass/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/T23-G1/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/T6-G12/T6/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/T7-G31/RemoteCCC/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/T9-G19/Progetto-SAD-G19-master/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/E2ETesting/testing/pom.xml" />
+        <option value="$PROJECT_DIR$/T11-G41-master/api_gateway/pom.xml" />
+      </list>
+    </option>
+    <option name="workspaceImportForciblyTurnedOn" value="true" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/out" />
+  </component>
+</project>

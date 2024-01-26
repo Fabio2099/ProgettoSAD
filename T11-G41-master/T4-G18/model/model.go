@@ -74,6 +74,9 @@ type Turn struct {
 	UpdatedAt time.Time  `gorm:"autoUpdateTime"`
 	StartedAt *time.Time `gorm:"default:null"`
 	ClosedAt  *time.Time `gorm:"default:null"`
+	TestClass string	 `gorm:"default:null"`
+	Robot	  string	 `gorm:"default:null"`
+	Difficulty string	 `gorm:"default:null"`	
 	Metadata  Metadata   `gorm:"foreignKey:TurnID;constraint:OnDelete:SET NULL;"`
 	Scores    string     `gorm:"default:null"`
 	IsWinner  bool       `gorm:"default:false"`

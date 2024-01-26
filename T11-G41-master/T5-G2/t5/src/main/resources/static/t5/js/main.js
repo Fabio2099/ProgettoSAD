@@ -169,7 +169,7 @@ function redirectToPageReport1(){
   if(classe){
     localStorage.setItem("classe", classe);
     localStorage.setItem("robot", "Tutti i Robot");
-    window.location.href = "/report";
+    window.location.href = "/report1";
   }
   else {
     alert("Seleziona una classe");

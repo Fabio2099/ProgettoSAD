@@ -44,6 +44,13 @@ import org.apache.http.client.utils.URIBuilder;
 public class MyController {
     private final RestTemplate restTemplate;
 
+    private static class ClassUnderTestData{
+        private String nomeCUT;
+        private String robotScelto;
+        private String difficolta;
+    }
+
+    private ClassUnderTestData currentClassUnderTestData;
     @Autowired
     public MyController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -63,6 +70,16 @@ public class MyController {
             @RequestParam("robotScelto") String robotScelto,
             @RequestParam("difficolta") String difficolta) {
         try {
+
+        /*    //---------------FABIO------------------
+            System.out.println("idUtente: " + idUtente);
+            System.out.println("idPartita: " + idPartita);
+            System.out.println("idTurno: " + idTurno);
+            System.out.println("nomeCUT: " + nomeCUT);
+            System.out.println("robotScelto: " + robotScelto);
+            System.out.println("difficolta: " + difficolta);
+            //---------------FABIO------------------
+            */ 
             // Esegui la richiesta HTTP al servizio esterno per ottenere il file
             // ClassUnderTest.java
             String url = "http://manvsclass-controller-1:8080/downloadFile/" + nomeCUT;
@@ -76,6 +93,10 @@ public class MyController {
 
             resp.put("class", ut);
 
+            currentClassUnderTestData = new ClassUnderTestData();
+            currentClassUnderTestData.nomeCUT = nomeCUT;
+            currentClassUnderTestData.robotScelto = robotScelto;
+            currentClassUnderTestData.difficolta = difficolta;
             // Restituisci una risposta di successo
             return new ResponseEntity<>(resp.toString(), HttpStatus.OK);
         } catch (Exception e) {
@@ -227,6 +248,12 @@ public class MyController {
             String score = responseObj.getString("scores");
             Integer roboScore = Integer.parseInt(score);
 
+            //-----------------Aggiunta Fabio---------------
+            String nomeCUT = currentClassUnderTestData.nomeCUT;
+            String robotScelto = currentClassUnderTestData.robotScelto;
+            String difficolta = currentClassUnderTestData.difficolta;
+            //-----------------Aggiunta Fabio---------------
+
             // conclusione e salvataggio partita
             // chiusura turno con vincitore
             HttpPut httpPut = new HttpPut("http://t4-g18-app-1:3000/turns/" + String.valueOf(request.getParameter("turnId")));
@@ -241,7 +268,16 @@ public class MyController {
             }
             String time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT);
             obj.put("closedAt", time);
+            obj.put("testClass", nomeCUT);
+            obj.put("robot", robotScelto);
+            obj.put("difficulty", difficolta);
 
+            
+            //-----------------Aggiunta Fabio---------------
+            System.out.println("nomeCUT: " + nomeCUT);
+            System.out.println("robotScelto: " + robotScelto);
+            System.out.println("difficolta: " + difficolta);
+            //-----------------Aggiunta Fabio---------------
             jsonEntity = new StringEntity(obj.toString(), ContentType.APPLICATION_JSON);
 
             httpPut.setEntity(jsonEntity);
@@ -298,6 +334,15 @@ public class MyController {
             result.put("win", userScore >= roboScore);
             result.put("robotScore", roboScore);
             result.put("score", userScore);
+
+            //-----------------FABIO----------------------
+            // Stampa i valori nel JSONObject
+            System.out.println("outCompile: " + result.optString("outCompile"));
+            System.out.println("coverage: " + result.optString("coverage"));
+            System.out.println("win: " + result.optBoolean("win"));
+            System.out.println("robotScore: " + result.optInt("robotScore"));
+            System.out.println("userScore: " + result.optInt("score"));
+            //-----------------FABIO----------------------
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);

@@ -44,6 +44,7 @@
                         <th>Classe Testata</th>
                         <th>Robot Sfidato</th>
                         <th>Risultato Partita</th>
+                        <th>Difficoltà</th>
                         <th>Scores</th>
                     </tr>
                 </thead>
@@ -82,15 +83,17 @@
                 const cellaClasse = riga.insertCell(3);
                 const cellaRobot = riga.insertCell(4);
                 const cellaRisultatoPartita = riga.insertCell(5);
-                const cellaScores = riga.insertCell(6);
+                const cellaDifficolta = riga.insertCell(6);
+                const cellaScores = riga.insertCell(7);
 
                 //assegna i valori alle celle delle righe
                 cellaID.innerHTML ='<span class ="colored-text">' + turn.id + '</span>';
                 cellaInizio.innerHTML = '<span class ="colored-text">' + turn.startedAt +'</span>';
                 cellaFine.innerHTML = '<span class ="colored-text">' + turn.closedAt + '</span>';
-                cellaClasse.innerHTML = '<span class ="colored-text"></span>'; //vuoto per ora
-                cellaRobot.innerHTML ='<span class ="colored-text"></span>'; //vuoto per ora
+                cellaClasse.innerHTML = '<span class ="colored-text">'+ turn.TestClass + '</span>'; 
+                cellaRobot.innerHTML ='<span class ="colored-text">'+ turn.Robot + '</span>'; 
                 cellaRisultatoPartita.innerHTML = '<span class ="colored-text">' + (turn.isWinner ? 'Vittoria': 'Sconfitta') + '</span>';
+                cellaDifficolta.innerHTML = '<span class ="colored-text">' + turn.Difficulty + '</span>';
                 cellaScores.innerHTML = '<span class ="colored-text">' + turn.scores + '</span>';
                 
             });

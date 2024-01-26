@@ -17,6 +17,9 @@ type Turn struct {
 	Scores    string     `json:"scores"`
 	StartedAt *time.Time `json:"startedAt"`
 	ClosedAt  *time.Time `json:"closedAt"`
+	TestClass string     `json:"testClass`
+	Robot	  string	 `json:"robot`
+	Difficulty string	 `json:"difficulty`	
 }
 type CreateRequest struct {
 	RoundId   int64      `json:"roundId"`
@@ -34,6 +37,9 @@ type UpdateRequest struct {
 	IsWinner  bool       `json:"isWinner"`
 	StartedAt *time.Time `json:"startedAt,omitempty"`
 	ClosedAt  *time.Time `json:"closedAt,omitempty"`
+	TestClass string     `json:"testClass`
+	Robot	  string	 `json:"robot`
+	Difficulty string	 `json:"difficulty`
 }
 
 func (UpdateRequest) Validate() error {
@@ -62,5 +68,8 @@ func fromModel(t *model.Turn) Turn {
 		StartedAt: t.StartedAt,
 		ClosedAt:  t.ClosedAt,
 		RoundID:   t.RoundID,
+		TestClass: t.TestClass,
+		Robot:	   t.Robot,
+		Difficulty: t.Difficulty,
 	}
 }

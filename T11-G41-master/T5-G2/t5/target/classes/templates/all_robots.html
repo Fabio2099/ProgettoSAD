@@ -19,17 +19,18 @@
         <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
     </div>
 
-    <div class="container">
+
+
+<!--    <div class="container">
 
         <div class="d-flex justify-content-center mt-0 row">
             <div class="col-md-10 offset-md-1 custom-column ">
-                <!-- Contenuto della colonna centrale -->
+                
                 <div class="v5_2090">
                     <div class="v5_2095" >
                         <span class="v5_2096">CHOOSE A CLASS TO TEST</span>
                         <div class="lista">  
-                            <!-- Creo una lista composta di elementi lista-item che stampano 
-                            il valore degli elementi contenuti nella lista java "classi" -->
+                           
                             <span class="spa">
                                 <button th:each="element: ${hashMap}" th:id="${element.key}"  type="button" class ="lista-item my-button"  th:text=${element.value} th:attr="onclick=|Handlebuttonclass1('${element.value}', this)|"></button>
                             </span> 
@@ -38,14 +39,66 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         
         <div class="d-flex justify-content-center div_buttons_main mt-3">
             <div class="div_back_main">
                 <button id="playAllRobotsButton" type="button" class="btn custom-button" th:onclick="redirectToPageReport1()">Gioca contro tutti i Robot</button>
             </div>
         </div>
-    </div>
+    </div> -->
+
+    <div class="container">
+
+        <div class="mt-0 row">
+
+            <div class="col-md-5 custom-column ">
+                <!-- Contenuto della prima colonna -->
+                <div class="v5_2090">
+                    <div class="v5_2095" >
+                        <span class="v5_2096">CHOOSE A CLASS TO TEST</span>
+                        <div class="lista">  
+                        <!-- Creo una lista composta di elementi lista-item che stampano 
+                        il valore degli elementi contenuti nella lista java "classi" -->
+                        <span class="spa">
+                            <button th:each="element: ${hashMap}" th:id="${element.key}"  type="button" class ="lista-item my-button"  th:text=${element.value} th:attr="onclick=|Handlebuttonclass('${element.value}', this)|"></button>
+                        </span> 
+
+                      
+                        </div>
+                        <div class="name"></div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 custom-column">
+                <!-- Contenuto della seconda colonna -->
+                <div class="v5_2111">
+                    <div class="v5_2116">
+                        <span class="v5_2117">ROBOT TO FIGHT</span>
+                            <div class="lista">  
+                                <!-- Creo una lista composta di elementi lista-item che stampano 
+                                il valore degli elementi contenuti nella lista java "classi" -->
+                                <span th:each="entry: ${hashMap2}" th:id="${'levels-' + entry.key}" class="spa levels">
+                                <!-- <button th:each="value: ${entry.value}" th:id="${entry.key + '-' + value}"  type="button" class ="lista-item my-button" th:text="${'randoop - LVL ' + value}" th:attr="onclick=|Handlebuttonrobot('${value}', this)|"></button> modificato con quello sotto-->
+                                    <span th:each="value, iterStat: ${entry.value}" th:id="${entry.key + '-' + value.list1}"  type="button" class="lista-item my-button1" th:text="${iterStat.index < entry.value.size() / 2 ? 'randoop' : 'evosuite'} + ' - LVL ' + (${iterStat.index < entry.value.size() / 2 ? value.list1 : value.list2})" >
+                                    </span>
+                                </span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+        <div class="div_buttons_main">
+            <div class="div_back_main">
+              <button type="button" class="btn custom-button" th:onclick="redirectToPageReport1()">Gioca contro tutti i Robot</button>
+            </div>
+      </div>
 </body>
 
 </html>

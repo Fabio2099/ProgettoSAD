@@ -280,7 +280,32 @@ position: center;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
+/*Aggiunta Fabio */
+.my-button1 {
+  display: inline-block;
+  width: max-content;
+  text-align: left;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: none;
+  background-color: transparent;
+  overflow-x: hidden;
+  color:  rgba(200, 199, 216, 1);
+  font-family: Circular Std;
+  font-weight: Book;
+  border-bottom: 4px solid rgba(165,158,186,1);
+  padding: 0.375rem 0.75rem;
+  font-size: 32px;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
 
+.my-button1:hover, .my-button1:focus, .my-button1:active {
+  color: rgba(200, 199, 216, 1) !important; /* Mantiene invariato il colore del testo */
+}
+/*-------------------------------------*/
 
 .custom-button {
   background-color: rgba(57,57,83,1);

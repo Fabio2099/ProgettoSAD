@@ -76,6 +76,7 @@
             const tabella = document.getElementById('storicoTable').getElementsByTagName('tbody')[0];
 
             data.forEach(turn => {
+                if(turn.closedAt !== null){
                 const riga = tabella.insertRow();
                 const cellaID = riga.insertCell(0);
                 const cellaInizio = riga.insertCell(1);
@@ -95,7 +96,7 @@
                 cellaRisultatoPartita.innerHTML = '<span class ="colored-text">' + (turn.isWinner ? 'Vittoria': 'Sconfitta') + '</span>';
                 cellaDifficolta.innerHTML = '<span class ="colored-text">' + turn.Difficulty + '</span>';
                 cellaScores.innerHTML = '<span class ="colored-text">' + turn.scores + '</span>';
-                
+                }   
             });
         }
         caricaStorico();

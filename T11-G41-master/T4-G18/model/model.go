@@ -98,8 +98,8 @@ func UpdatePlayerWins(db *gorm.DB, playerID string) error {
         return result.Error
     }
 	
-	//Calcola il numero totale di partite giocate per il giocatore specificato
-	result = db.Model(&Turn{}).Where("player_id = ?", playerID).Count(&turnsPlayed)
+	//Calcola il numero totale di partite giocate e terminate correttamente per il giocatore specificato
+	result = db.Model(&Turn{}).Where("player_id = ? AND closed_at IS NOT NULL", playerID).Count(&turnsPlayed)
 	if result.Error != nil {
         return result.Error
     }
@@ -158,7 +158,7 @@ func (pg *Turn) AfterSave(tx *gorm.DB) (err error) {
    func(pg *Turn) AfterSave(tx *gorm.DB) (err error){
 	playerID := pg.PlayerID
 	var turnsPlayed int64
-	result := tx.Model(&Turn{}).Where("player_id = ?", playerID).Count(&turnsPlayed)
+	result := tx.Model(&Turn{}).Where("player_id = ? AND closed_at IS NOT NULL", playerID).Count(&turnsPlayed)
 	if result.Error != nil{
 		return result.Error
 	}

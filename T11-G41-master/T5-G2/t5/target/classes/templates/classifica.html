@@ -6,7 +6,7 @@
     <link th:href="@{./t5/css/main2.css}" rel="stylesheet" />
     <link th:href="@{./t5/bootstrap-4/css/bootstrap.min.css}" rel="stylesheet" />
     <script th:src="@{/t5/js/main.js}"></script>
-    <title>Classifica Giocatori</title>
+    <title>Player Ranking</title>
     <style>
         #classificaTable th {
             color: white;
@@ -15,6 +15,9 @@
 
         .colored-text {
             color: white;
+        }
+        .container{
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -38,60 +41,29 @@
                 <th>Nome Giocatore</th>
                 <th>Partite Vinte</th>
                 <th>Partite Effetuate</th>
-                <th>Percentuale Vittorie</th>  <!--Nuova colonna -->
+             <!--   <th>Percentuale Vittorie</th>-->  <!--Nuova colonna -->
             </tr>
             </thead>
-            <tbody>
+            
             <!-- Il contenuto della tabella sarà popolato dinamicamente qui -->
+            <tbody>
+                <tr th:each="giocatore : ${classifica}">
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['accountId']}"></span></td>
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['name']}"></span></td>
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['wins']}"></span></td>
+                    <td style ="text-align: center;"><span class="colored-text" th:text="${giocatore['turnsPlayed']}"></span></td>
+                  <!--   <td th:with="percentuale=${giocatore['turnsPlayed']} == 0 ? 0 : 
+                                   (giocatore['wins'] / giocatore['turnsPlayed'] * 100.0)"
+                        th:text="${#numbers.formatDecimal(percentuale, 1, 2)} + '%'"></td>
+                     -->   
+                </tr>
+                
             </tbody>
+            
+           
         </table>
     </div>
 </div>
-
-<script>
-    // Funzione per effettuare la richiesta HTTP e popolare la tabella della classifica
-    function caricaClassifica() {
-        fetch("http://t4-g18-app-1:3000/players")
-            .then(response => response.json())
-            .then(data => {
-                // Chiamata quando la richiesta ha successo
-                popolaTabella(data);
-            })
-            .catch(error => {
-                // Chiamata quando la richiesta fallisce
-                console.error('Errore nella richiesta HTTP:', error);
-            });
-    }
-
-    // Funzione per popolare dinamicamente la tabella
-    function popolaTabella(data) {
-        data.sort((a, b) => b.wins - a.wins);
-        const tabella = document.getElementById('classificaTable').getElementsByTagName('tbody')[0];
-
-        // Cicla attraverso i dati ottenuti dalla richiesta
-        data.forEach(giocatore => {
-            const riga = tabella.insertRow();
-            const cellaId = riga.insertCell(0);
-            const cellaNome = riga.insertCell(1);
-            const cellaWins = riga.insertCell(2);
-            const cellaPartiteEffettuate = riga.insertCell(3);
-            const cellaPercentualeVittorie = riga.insertCell(4); // Nuova cella
-
-            // Assegna i valori alle celle della riga
-            cellaId.innerHTML = '<span class ="colored-text">' + giocatore.accountId + '</span>';
-            cellaNome.innerHTML = '<span class ="colored-text">' + giocatore.name + '</span>';
-            cellaWins.innerHTML = '<span class ="colored-text">' + giocatore.wins + '</span>';
-            cellaPartiteEffettuate.innerHTML = '<span class ="colored-text">' + giocatore.turnsPlayed + '</span>';
-
-            // Calcola e assegna la percentuale di partite vinte
-            const percentualeVittorie = (giocatore.wins / giocatore.turnsPlayed * 100).toFixed(2);
-            cellaPercentualeVittorie.innerHTML = '<span class ="colored-text">' + percentualeVittorie + '%</span>';
-        });
-    }
-
-    // Chiama la funzione per caricare la classifica al caricamento della pagina
-    caricaClassifica();
-</script>
 
 </body>
 

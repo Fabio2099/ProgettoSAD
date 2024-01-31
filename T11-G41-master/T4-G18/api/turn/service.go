@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strconv"
 	"time"
-
+	"log"
 	"github.com/alarmfox/game-repository/api"
 	"github.com/alarmfox/game-repository/model"
 	"gorm.io/gorm"
@@ -99,18 +99,47 @@ func (tr *Repository) GetTurnsByAccountID(accountID string) ([]Turn, error) {
 	}
 	return resp, nil
 }
-
 func (tr *Repository) Update(id int64, r *UpdateRequest) (Turn, error) {
 
-	var (
-		turn model.Turn = model.Turn{ID: id}
-		err  error
-	)
+	var turn model.Turn
+	err := tr.db.First(&turn, id).Error
+	if err != nil {
+		return Turn{}, api.MakeServiceError(err)
+	}
+
+	playerID := turn.PlayerID
+	log.Printf("Updating wins for playerID: %d", playerID)
 
 	err = tr.db.Model(&turn).Updates(r).Error
+	if err != nil {
+		return Turn{}, api.MakeServiceError(err)
+	}
 
-	return fromModel(&turn), api.MakeServiceError(err)
+	
+	
+	if err := model.UpdatePlayerWins(tr.db, playerID); err != nil {
+		log.Printf("Error updating player wins: %v", err)
+		return Turn{}, api.MakeServiceError(err)
+	}
+	return fromModel(&turn), nil
 }
+
+/*func (tr *Repository) Update(id int64, r *UpdateRequest) (Turn, error) {
+
+	var turn model.Turn = model.Turn{ID: id}
+	err := tr.db.Model(&turn).Updates(r).Error
+	if err != nil {
+		return fromModel(&turn), api.MakeServiceError(err)
+	}
+
+	playerID := PlayerID
+	log.Printf("Updating wins for playerID: %d", playerID)
+	if err := model.UpdatePlayerWins(tr.db, playerID); err != nil {
+		log.Printf("Error updating player wins: %v", err)
+		return fromModel(&turn), api.MakeServiceError(err)
+	}
+	return fromModel(&turn), nil
+}*/
 
 func (tr *Repository) FindById(id int64) (Turn, error) {
 	var turn model.Turn

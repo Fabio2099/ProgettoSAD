@@ -19,35 +19,6 @@
         <button id="logoutButton" type="button" class="logout-button" th:onclick="redirectToLogin()">Logout</button>
     </div>
 
-
-
-<!--    <div class="container">
-
-        <div class="d-flex justify-content-center mt-0 row">
-            <div class="col-md-10 offset-md-1 custom-column ">
-                
-                <div class="v5_2090">
-                    <div class="v5_2095" >
-                        <span class="v5_2096">CHOOSE A CLASS TO TEST</span>
-                        <div class="lista">  
-                           
-                            <span class="spa">
-                                <button th:each="element: ${hashMap}" th:id="${element.key}"  type="button" class ="lista-item my-button"  th:text=${element.value} th:attr="onclick=|Handlebuttonclass1('${element.value}', this)|"></button>
-                            </span> 
-                        </div>
-                        <div class="name"></div>
-                    </div>
-                </div>
-            </div>
-        </div> 
-        
-        <div class="d-flex justify-content-center div_buttons_main mt-3">
-            <div class="div_back_main">
-                <button id="playAllRobotsButton" type="button" class="btn custom-button" th:onclick="redirectToPageReport1()">Gioca contro tutti i Robot</button>
-            </div>
-        </div>
-    </div> -->
-
     <div class="container">
 
         <div class="mt-0 row">
@@ -96,7 +67,7 @@
 
         <div class="div_buttons_main">
             <div class="div_back_main">
-              <button type="button" class="btn custom-button" th:onclick="redirectToPageReport1()">Gioca contro tutti i Robot</button>
+              <button type="button" class="btn custom-button" th:onclick="redirectToPageReport1()">Play against all Robots</button>
             </div>
       </div>
 </body>

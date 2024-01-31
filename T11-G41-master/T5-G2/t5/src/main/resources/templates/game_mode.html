@@ -7,20 +7,20 @@
     <link th:href="@{./t5/bootstrap-4/css/bootstrap.min.css}" rel="stylesheet" />
     <script th:src="@{/t5/js/main.js}"></script>
     <style>
-        /* Aggiunto stile per il titolo */
+        
         h1 {
             color: #fff; /* Colore del testo bianco */
             font-family: 'Arial', sans-serif; /* Stesso font del titolo */
         }
 
-        /* Aggiunto stile per il testo dei bottoni */
+        
         .btn.custom-button {
             white-space: normal; /* Per andare a capo */
             width: 100%; /* Larghezza al 100% della colonna */
             font-family: 'Arial', sans-serif; /* Stesso font del titolo */
         }
     </style>
-    <title>Scegli la modalità di gioco</title>
+    <title>Game Mode</title>
 </head>
 
 <body class="bg-custom">
@@ -35,7 +35,7 @@
 
     <div class="container">
 
-        <h1 class="mt-4">Scegli la modalità di gioco</h1>
+        <h1 class="mt-4">Choose the Game Mode</h1>
 
         <div class="mt-0 row">
 
@@ -45,7 +45,7 @@
                     <div class="v5_2095_main">
                         <span class="v5_2096"></span>
                         <div class="div_back_main">
-                            <button id="nuovaPartitaButton" type="button" class="btn custom-button" th:onclick="redirectToPageChoose()">Modalià Classica (1Vs1)</button>
+                            <button id="nuovaPartitaButton" type="button" class="btn custom-button" th:onclick="redirectToPageChoose()">First Mode (1Vs1)</button>
                         </div>
                         <div class="name"></div>
                     </div>
@@ -58,7 +58,7 @@
                     <div class="v5_2116_main">
                         <span class="v5_2117"></span>
                         <div class="div_back_main">
-                            <button id="classificaButton" type="button" class="btn custom-button" th:onclick="redirectToAllRobots()">Modalità Alternativa (1VSTutti)</button>
+                            <button id="classificaButton" type="button" class="btn custom-button" th:onclick="redirectToAllRobots()">Second Mode (1VSAll)</button>
                         </div>
                         <div class="name"></div>
                     </div>

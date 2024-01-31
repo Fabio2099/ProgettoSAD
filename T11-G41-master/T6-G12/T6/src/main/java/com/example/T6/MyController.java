@@ -70,16 +70,6 @@ public class MyController {
             @RequestParam("robotScelto") String robotScelto,
             @RequestParam("difficolta") String difficolta) {
         try {
-
-        /*    //---------------FABIO------------------
-            System.out.println("idUtente: " + idUtente);
-            System.out.println("idPartita: " + idPartita);
-            System.out.println("idTurno: " + idTurno);
-            System.out.println("nomeCUT: " + nomeCUT);
-            System.out.println("robotScelto: " + robotScelto);
-            System.out.println("difficolta: " + difficolta);
-            //---------------FABIO------------------
-            */ 
             // Esegui la richiesta HTTP al servizio esterno per ottenere il file
             // ClassUnderTest.java
             String url = "http://manvsclass-controller-1:8080/downloadFile/" + nomeCUT;
@@ -148,46 +138,6 @@ public class MyController {
         return Files.readAllBytes(path);
     }
 
-    // @PostMapping("/getResultXml")
-    // public String handleGetResultXmlRequest() {
-    // // try {
-    // // // Esegui la richiesta HTTP al servizio di destinazione
-    // // HttpPost httpPost = new HttpPost("URL_DEL_SERVIZIO_DESTINAZIONE");
-    // // JSONObject obj = new JSONObject();
-
-    // // obj.put("testingClassName", request.getParameter("testingClassName"));
-    // // obj.put("testingClassCode", request.getParameter("testingClassCode"));
-    // // obj.put("underTestClassName", request.getParameter("underTestClassName"));
-    // // obj.put("underTestClassCode", request.getParameter("underTestClassCode"));
-    // // StringEntity jsonEntity = new StringEntity(obj.toString(),
-    // ContentType.APPLICATION_JSON);
-
-    // // httpPost.setEntity(jsonEntity);
-    // // HttpResponse targetServiceResponse = httpClient.execute(httpPost);
-
-    // // // Verifica lo stato della risposta
-    // // int statusCode = targetServiceResponse.getStatusLine().getStatusCode();
-    // // if (statusCode == HttpStatus.OK.value()) {
-    // // // Leggi il contenuto del file XML dalla risposta
-    // // HttpEntity entity = targetServiceResponse.getEntity();
-    // // String compileContent = EntityUtils.toString(entity);
-
-    // // String responseBody = EntityUtils.toString(entity);
-    // // JSONObject responseObj = new JSONObject(responseBody);
-    // // // Restituisci il contenuto del file XML come risposta al client
-    // // return xmlContent;
-    // // } else {
-    // // // Restituisci un messaggio di errore al client
-    // // return "Errore durante il recupero del file XML.";
-    // // }
-    // // } catch (Exception e) {
-    // // // Gestisci eventuali errori e restituisci un messaggio di errore al
-    // client
-    // // return "Si è verificato un errore durante la richiesta del file XML.";
-    // // }
-    // }
-    // FUNZIONE CHE DOVREBBE RICEVERE I RISULTATI DEI ROBOT
-
     @PostMapping("/run") // NON ESISTE NESSUN INTERFACCIA VERSO I COMPILATORI DEI ROBOT EVOSUITE E
                          // RANDOOP
     public ResponseEntity<String> runner(HttpServletRequest request) {
@@ -248,11 +198,11 @@ public class MyController {
             String score = responseObj.getString("scores");
             Integer roboScore = Integer.parseInt(score);
 
-            //-----------------Aggiunta Fabio---------------
+            //-----------------Aggiunta A9---------------
             String nomeCUT = currentClassUnderTestData.nomeCUT;
             String robotScelto = currentClassUnderTestData.robotScelto;
             String difficolta = currentClassUnderTestData.difficolta;
-            //-----------------Aggiunta Fabio---------------
+            //-----------------Aggiunta A9---------------
 
             // conclusione e salvataggio partita
             // chiusura turno con vincitore
@@ -272,12 +222,6 @@ public class MyController {
             obj.put("robot", robotScelto);
             obj.put("difficulty", difficolta);
 
-            
-            //-----------------Aggiunta Fabio---------------
-            System.out.println("nomeCUT: " + nomeCUT);
-            System.out.println("robotScelto: " + robotScelto);
-            System.out.println("difficolta: " + difficolta);
-            //-----------------Aggiunta Fabio---------------
             jsonEntity = new StringEntity(obj.toString(), ContentType.APPLICATION_JSON);
 
             httpPut.setEntity(jsonEntity);
@@ -335,15 +279,6 @@ public class MyController {
             result.put("robotScore", roboScore);
             result.put("score", userScore);
 
-            //-----------------FABIO----------------------
-            // Stampa i valori nel JSONObject
-            System.out.println("outCompile: " + result.optString("outCompile"));
-            System.out.println("coverage: " + result.optString("coverage"));
-            System.out.println("win: " + result.optBoolean("win"));
-            System.out.println("robotScore: " + result.optInt("robotScore"));
-            System.out.println("userScore: " + result.optInt("score"));
-            //-----------------FABIO----------------------
-
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -355,33 +290,6 @@ public class MyController {
         }
     }
 
-    // FUNZIONE CHE DOVREBBE RICEVERE I RISULTATI DEI ROBOT
-    // @GetMapping("/getResultRobot")
-    // public String handleGetResultRobotRequest() {
-    //     try {
-    //         // Esegui la richiesta HTTP al servizio di destinazione
-    //         HttpGet httpGet = new HttpGet("URL_DEL_SERVIZIO_DESTINAZIONE");
-
-    //         HttpResponse targetServiceResponse = httpClient.execute(httpGet);
-
-    //         // Verifica lo stato della risposta
-    //         int statusCode = targetServiceResponse.getStatusLine().getStatusCode();
-    //         if (statusCode == HttpStatus.OK.value()) {
-    //             // Leggi il contenuto del file XML dalla risposta
-    //             HttpEntity entity = targetServiceResponse.getEntity();
-    //             String xmlContent = EntityUtils.toString(entity);
-
-    //             // Restituisci il contenuto del file XML come risposta al client
-    //             return xmlContent;
-    //         } else {
-    //             // Restituisci un messaggio di errore al client
-    //             return "Errore durante il recupero del file XML.";
-    //         }
-    //     } catch (Exception e) {
-    //         // Gestisci eventuali errori e restituisci un messaggio di errore al client
-    //         return "Si è verificato un errore durante la richiesta del file XML.";
-    //     }
-    // }
 
     @PostMapping("/getJaCoCoReport")
     public ResponseEntity<String> getJaCoCoReport(HttpServletRequest request) {
@@ -422,39 +330,4 @@ public class MyController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
-    // @PostMapping("/inviaDatiEFile")
-    // public ResponseEntity<String> handleInviaDatiEFileRequest(
-    //         @RequestParam("idUtente") String idUtente,
-    //         @RequestParam("idPartita") String idPartita,
-    //         @RequestParam("idTurno") String idTurno,
-    //         @RequestParam("robotScelto") String robotScelto,
-    //         @RequestParam("difficolta") String difficolta,
-    //         @RequestParam("file") MultipartFile file,
-    //         @RequestParam("playerTestClass") String playerTestClass) {
-    //     try {
-    //         // Creazione di una richiesta HTTP POST al servizio di destinazione
-    //         HttpPost httpPost = new HttpPost("URL_DEL_SERVIZIO_DESTINAZIONE");// CHIAMA UPDATE TURN TASK4
-    //         // Creazione del corpo della richiesta multipart
-    //         MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create()
-    //                 .addTextBody("idUtente", idUtente)
-    //                 .addTextBody("idPartita", idPartita)
-    //                 .addTextBody("idTurno", idTurno)
-    //                 .addTextBody("robotScelto", robotScelto)
-    //                 .addTextBody("difficolta", difficolta)
-    //                 .addTextBody("playerTestClass", playerTestClass); // Aggiungi la classe Java come parte del corpo
-    //                                                                   // della richiesta
-    //         // .addBinaryBody("file", file.getBytes(), ContentType.APPLICATION_OCTET_STREAM,
-    //         // file.getOriginalFilename());
-
-    //         // Esecuzione della richiesta HTTP al servizio di destinazione
-    //         HttpResponse targetServiceResponse = httpClient.execute(httpPost);
-    //         // Restituisci una risposta di successo
-    //         return ResponseEntity.ok("Dati, file e classe Java inviati con successo");
-    //     } catch (Exception e) {
-    //         // Gestisci eventuali errori e restituisci una risposta di errore
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //                 .body("Errore durante l'invio dei dati, del file e della classe Java");
-    //     }
-    // }
 }

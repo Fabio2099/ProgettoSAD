@@ -13,7 +13,7 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
-import org.apache.http.client.methods.HttpPut; //aggiunta Fabio
+import org.apache.http.client.methods.HttpPut; 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,61 +37,11 @@ import com.g2.Model.Game;
 public class GameDataWriter {
 
     private final HttpClient httpClient = HttpClientBuilder.create().build();
-    // private static String CSV_FILE_PATH =
-    // "/app/AUTName/StudentLogin/GameId/GameData.csv";
-    // private static final String[] CSV_HEADER = { "GameId", "Username",
-    // "PlayerClass", "Robot" };
-    // public long getGameId() {
-    // long gameId = 0;
-
-    // try {
-    // // Crea il Reader per il file CSV
-    // Reader reader = new FileReader(CSV_FILE_PATH);
-
-    // // Crea il CSVParser con il Reader e il formato CSV
-    // CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
-
-    // // Ottieni tutte le righe del file CSV
-    // List<CSVRecord> records = csvParser.getRecords();
-
-    // // Verifica se ci sono righe nel file CSV
-    // if (!records.isEmpty()) {
-    // // Prendi l'ultima riga del file CSV
-    // CSVRecord lastRecord = records.get(records.size() - 1);
-
-    // // Ottieni l'ID dalla prima colonna della riga
-    // gameId = Long.parseLong(lastRecord.get(0));
-    // }
-
-    // // Chiudi il CSVParser e il Reader
-    // csvParser.close();
-    // reader.close();
-    // } catch (IOException e) {
-    // System.err.println("Errore durante la lettura del file CSV: " +
-    // e.getMessage());
-    // }
-
-    // return gameId;
-    // }
+    
     public JSONObject saveGame(Game game) {
         try {
             String time = ZonedDateTime.now(ZoneOffset.UTC).format(DateTimeFormatter.ISO_INSTANT);
-//----------------MODIFICHE FABIO-----------------------------
-            JSONObject newPlayerObj = new JSONObject();
-            newPlayerObj.put("name",game.getPlayerName());
 
-            System.out.println("IL campo playerId è: " +game.getPlayerId());
-            System.out.println("IL campo nome è: " +game.getPlayerName());
-
-            String newPlayerUrl ="http://t4-g18-app-1:3000/players/" + game.getPlayerId();
-
-            HttpPut httpPutPlayer = new HttpPut(newPlayerUrl);
-            StringEntity jsoEntityPlayer = new StringEntity(newPlayerObj.toString(),ContentType.APPLICATION_JSON);
-            httpPutPlayer.setEntity(jsoEntityPlayer);
-
-            HttpResponse newPlayerResponse = httpClient.execute(httpPutPlayer);
-            int newPlayerStatusCode = newPlayerResponse.getStatusLine().getStatusCode();
-//---------------- FINE MODIFICHE FABIO-----------------------------
             JSONObject obj = new JSONObject();
 
             obj.put("difficulty", game.getDifficulty());
@@ -102,10 +52,6 @@ public class GameDataWriter {
             JSONArray playersArray = new JSONArray(); 
             playersArray.put(String.valueOf(game.getPlayerId()));
  
-//-------------------------------------Fabio Prova----------------------------
-            //stampa i, contenuto di playerarray
-            System.out.println("contenuto di playerArray: " + playersArray.toString());
-//-------------------------------------Fabio Prova----------------------------
             obj.put("players", playersArray);
 
 
@@ -133,7 +79,19 @@ public class GameDataWriter {
             round.put("gameId", game_id);
             round.put("testClassId", game.getClasse());
             round.put("startedAt", time);
+        //----------------MODIFICHE A9-----------------------------
+            JSONObject newPlayerObj = new JSONObject();
+            newPlayerObj.put("name",game.getPlayerName());
 
+            String newPlayerUrl ="http://t4-g18-app-1:3000/players/" + game.getPlayerId();
+
+            HttpPut httpPutPlayer = new HttpPut(newPlayerUrl);
+            StringEntity jsoEntityPlayer = new StringEntity(newPlayerObj.toString(),ContentType.APPLICATION_JSON);
+            httpPutPlayer.setEntity(jsoEntityPlayer);
+
+            HttpResponse newPlayerResponse = httpClient.execute(httpPutPlayer);
+            int newPlayerStatusCode = newPlayerResponse.getStatusLine().getStatusCode();
+//---------------- FINE MODIFICHE A9-----------------------------
             httpPost = new HttpPost("http://t4-g18-app-1:3000/rounds");
             jsonEntity = new StringEntity(round.toString(), ContentType.APPLICATION_JSON);
 
@@ -189,32 +147,6 @@ public class GameDataWriter {
             System.err.println(e);
             return null;
         }
-        // try {
-        // // Crea il file CSV se non esiste
-        // File file = new File(CSV_FILE_PATH);
-        // CSV_FILE_PATH = file.getAbsolutePath();
-
-        // // Crea il Writer per il file CSV
-        // Writer writer = new FileWriter(CSV_FILE_PATH, true);
-
-        // // Crea il CSVPrinter con il Writer e il formato CSV
-        // CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT);
-
-        // // Scrivi i dati dell'oggetto Game come tupla CSV nel file
-        // csvPrinter.printRecord(game.getGameId(), game.getUsername(),
-        // game.getPlayerClass(), game.getRobot(), game.getData_creazione(),
-        // game.getOra_creazione());
-
-        // // Chiudi il CSVPrinter e il Writer
-        // csvPrinter.flush();
-        // csvPrinter.close();
-        // writer.close();
-
-        // System.out.println("L'oggetto Game è stato salvato correttamente nel file
-        // CSV.");
-        // } catch (IOException e) {
-        // System.err.println("Errore durante la scrittura del file CSV: " +
-        // e.getMessage());
-        // }
+    
     }
 }

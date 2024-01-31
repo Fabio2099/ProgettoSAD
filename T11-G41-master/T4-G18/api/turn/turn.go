@@ -3,8 +3,9 @@ package turn
 import (
 	"strconv"
 	"time"
-
+//	"gorm.io/gorm"
 	"github.com/alarmfox/game-repository/model"
+	
 )
 
 type Turn struct {
@@ -21,11 +22,13 @@ type Turn struct {
 	Robot	  string	 `json:"robot`
 	Difficulty string	 `json:"difficulty`	
 }
+
 type CreateRequest struct {
 	RoundId   int64      `json:"roundId"`
 	Players   []string   `json:"players"`
 	StartedAt *time.Time `json:"startedAt,omitempty"`
 	ClosedAt  *time.Time `json:"closedAt,omitempty"`
+	
 }
 
 func (CreateRequest) Validate() error {

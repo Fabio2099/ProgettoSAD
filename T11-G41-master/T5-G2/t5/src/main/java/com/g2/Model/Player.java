@@ -7,11 +7,11 @@ public class Player {
 
     private static Player instance;
 
-    private Player() {
-        // Costruttore privato per impedire l'istanziazione diretta
+    public Player(String name) {
+        this.name = name;
     }
 
-    public static Player getInstance() {
+    /*  public static Player getInstance() {
         if (instance == null) {
             synchronized (Player.class) {
                 if (instance == null) {
@@ -20,10 +20,13 @@ public class Player {
             }
         }
         return instance;
-    }
+    }*/
 
     public String getName(){
         return name;
+    }
+    public void setName(){
+        this.name=name;
     }
     public String getUsername() {
         return username;

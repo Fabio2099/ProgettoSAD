@@ -21,66 +21,6 @@ func NewController(ps Service) *Controller {
 	return &Controller{service: ps}
 }
 
-/*func (gc *Controller) FindByID(w http.ResponseWriter, r *http.Request) error {
-	id, err := api.FromUrlParams[KeyType](r, "id")
-	if err != nil {
-		return err
-	}
-	g, err := gc.service.FindByID(id.AsInt64())
-
-	if err != nil {
-		return api.MakeHttpError(err)
-	}
-
-	return api.WriteJson(w, http.StatusOK, g)
-}
-
-func (gc *Controller) List(w http.ResponseWriter, r *http.Request) error {
-	id, err := api.FromUrlQuery[AccountIdType](r, "Id", "")
-
-	if err != nil {
-		return err
-	}
-	page, err := api.FromUrlQuery[KeyType](r, "page", 1)
-
-	if err != nil {
-		return err
-	}
-
-	pageSize, err := api.FromUrlQuery[KeyType](r, "pageSize", 10)
-
-	if err != nil {
-		return err
-	}*/
-
-	/*startDate, err := api.FromUrlQuery(r, "startDate", IntervalType(time.Now().Add(-24*time.Hour)))
-
-	if err != nil {
-		return err
-	}
-
-	endDate, err := api.FromUrlQuery(r, "endDate", IntervalType(time.Now()))
-
-	if err != nil {
-		return err
-	}
-
-	ip := api.IntervalParams{
-		Start: startDate.AsTime(),
-		End:   endDate.AsTime(),
-	}*/
-
-	/*pp := api.PaginationParams{
-		Page:     page.AsInt64(),
-		PageSize: pageSize.AsInt64(),
-	}*/
-
-	/*players, err := gc.service.FindByID(id.AsInt64())
-	if err != nil {
-		return api.MakeHttpError(err)
-	}
-	return api.WriteJson(w, http.StatusOK, players)
-}*/
 
 // ListPlayers restituisce tutti i giocatori
 func (pc *Controller) ListPlayers(w http.ResponseWriter, r *http.Request) error{

@@ -4,7 +4,7 @@ import java.time.*;
 
 public class Game {
     private int playerId;
-    private String playerName; //aggiunta Fabio
+    private String playerName; //aggiunta A9
     private long id;
     private String description;
     private String name;
@@ -19,7 +19,7 @@ public class Game {
 
     public Game(int playerId, String playerName, String description, String name, String difficulty) {
         this.playerId = playerId;
-        this.playerName = playerName; //aggiunta Fabio
+        this.playerName = playerName; //aggiunta A9
         this.description = description;
         this.name = name;
         this.difficulty = difficulty;
@@ -30,7 +30,7 @@ public class Game {
         return playerId;
     }
 
-    public String getPlayerName(){  //aggiunta Fabio
+    public String getPlayerName(){  //aggiunta A9
         return playerName;
     }
 

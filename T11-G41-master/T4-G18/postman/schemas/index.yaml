@@ -1,14 +1,17 @@
 openapi: "3.0.0"
 info:
-    version: "0.0.1"
+    version: 1.0.0
     title: "Game Repository API"
     description: Game Repository REST API
 
 servers:
-    - url: https://sad.capass.org
-      description: Stage server (public available)
+    # Added by API Auto Mocking Plugin
     - url: http://localhost:3000
       description: Local server (used for  local development)
+    - description: SwaggerHub API Auto Mocking
+      url: https://virtserver.swaggerhub.com/FRANCYRIC10/SAD/1.0.0
+      
+
 
 paths:
     /games/{id}:
@@ -1036,6 +1039,72 @@ paths:
                         application/json:
                             schema:
                                 $ref: "#/components/schemas/Error"
+            
+    /players:
+        get:
+            summary: Retrieve list of players
+            description: Fetches a list of players along with their game details for leaderboard display.
+            tags:
+                - players
+            responses:
+                "200":
+                    description: List of players
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: "#/components/schemas/Player"
+                "500":
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+
+    /players/{accountId}:
+        put:
+            summary: Update player details
+            description: Updates the details of a specific player identified by accountId, used for updating player's name during game save.
+            tags:
+                - players
+            parameters:
+                - name: accountId
+                  in: path
+                  description: Unique identifier of the player
+                  required: true
+                  schema:
+                      type: string
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                name:
+                                    type: string
+                            example:
+                                name: "NuovoNomeGiocatore"
+            responses:
+                "200":
+                    description: Player details updated
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Player"
+                "400":
+                    description: Bad request
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
+                "500":
+                    description: Internal server error
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/Error"
 
 components:
     schemas:
@@ -1210,3 +1279,14 @@ components:
                     type: array
                     items:
                         $ref: "#/components/schemas/GameShort"
+        Player:
+            type: object
+            properties:
+                accountId:
+                    type: string
+                name:
+                    type: string
+                wins:
+                    type: integer
+                turnsPlayed:
+                    type: integer
